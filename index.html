@@ -3,12 +3,17 @@
 
 <head>
     <meta charset="utf-8" meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ganiverse</title>
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Imports TensorFlow.js -->
     <!-- <script src="https://unpkg.com/@tensorflow/tfjs"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.1/dist/tf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+
+    <!-- Import opencv from the file opecv.js -->
+    <script src="opencv.js"></script>
 
 </head>
 <body style="background-color:#000000">
@@ -30,12 +35,13 @@
       <div>
         <!-- This button tells the model to return an image for to be displayed in the canvas -->
         <button type="button" onclick="generateCustom()">Create</button>
-        <!-- This button clears the canvas so that we can create a new planet -->
-        <button type="button" onclick="erase()">Clear</button>
+        <!-- Make a button that saves the image -->
+        <button type="button" onclick="saveImage()">Save</button>
       </div>
       <br>
       <div>
         <!-- This button tells the model to return an image for to be displayed in the canvas -->
+        <!-- After generating, create a random name with the function generateName() and display it below -->
         <button type="button" onclick="generateRandom()">Create random</button>
       </div>
       <br>
@@ -43,10 +49,18 @@
       <br>
       <!-- This defines the canvas which will show the image -->
       <canvas id="canvas" width="500px" height="500px" style="border:1px solid #000000"></canvas>
+      <br>
+      <br>
+      <br>
+      <!-- Only show the nametag, if the button generateRandom is pressed -->
+      <p class="nametag" id="name" style="color:white; font-size: 30px"></p>
+
 
       <script src="script.js" onload="loadModel()"></script>
       <!-- <script async src="opencv.js" onload="opencvcheck()" type="text/javascript"></script> -->
+      <script async src="opencv.js"></script>
       <script src="stars.js"></script>
+      <script src="effects.js"></script>
     </div>
 </body>
 </html>

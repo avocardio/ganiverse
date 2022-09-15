@@ -1,0 +1,31 @@
+
+/* Make a class for a button */
+
+.button {
+  background-color: #aa4caf; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* A class for the nametag, that has a weirdly shaped rectangle */
+
+.nametag {
+    border: 5px inset rgba(255, 190, 253, 0.399);
+    border-radius: 0px 20px 0px 20px;
+    background-color: rgba(185, 117, 185, 0.479);
+    width: 250px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    /* change the font to something futuristic */
+    font-family: "Courier New", Courier, monospace;
+    display: none;
+}

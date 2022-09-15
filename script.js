@@ -52,6 +52,7 @@ var dragging = false;
 var pos = { x: 0, y: 0 };
 var slider = document.getElementById("slider");
 var output = document.getElementById("output");
+var name = document.getElementById("name");
 document.getElementById('model_checker').innerHTML="Please wait for the model to load. (This can take up to 20 seconds)"
 output.innerHTML = "Mean of Z: " + slider.value / 100;
 
@@ -65,6 +66,10 @@ function erase() {
 
 function opencvcheck() {
     document.getElementById('checker').innerHTML="Opencv is ready."
+}
+
+function name_planet() {
+    document.getElementById('name').innerHTML= nameGenerator();
 }
 
 async function loadModel(){	
@@ -103,6 +108,9 @@ async function generateCustom() {
     }
 
     ctx.putImageData(new ImageData(Uint8ClampedArray.from(result), 500, 500), 0, 0);
+
+    name_planet();
+    document.getElementById("name").style.display = "block";
 }
 
 async function generateRandom() {
@@ -114,7 +122,6 @@ async function generateRandom() {
 
     // Change slider value to the mean of the input tensor
     document.getElementById("slider").value = inputtensor.mean().dataSync()[0] * 100;
-
     document.getElementById('output').innerHTML = "Mean of Z: " + Math.round(inputtensor.mean().dataSync()[0] * 100) / 100;
 
     // Prediction
@@ -129,7 +136,13 @@ async function generateRandom() {
         result[i]=result[i]*255.0 + 128.0;
     }
 
+    // Apply OpenCV filter
+    // result = await applyFilter(result)
+
     ctx.putImageData(new ImageData(Uint8ClampedArray.from(result), 500, 500), 0, 0);
+
+    name_planet();
+    document.getElementById("name").style.display = "block";
 }
 
 var generator;
@@ -138,11 +151,42 @@ tf.loadGraphModel('model/model.json').then(async (resolve) => {
     generator=resolve
 });
 
-// Function for applying OpenCV filters
-async function applyFilter(tensor) {
-    let input = tensor.reshape([500, 500, 3])
-    input = tf.concat([input, tf.ones([500, 500, 1])], 2)
-    input = input.dataSync()
-    let filter = cv.bilateralFilter(input, 5, 50, 50, cv.BORDER_DEFAULT)
-    return filter
+// Function for applying the OpenCV filter cv.bilateralFilter(result, 5, 50, 50, cv.BORDER_DEFAULT) to the generated image
+async function applyFilter() {
+    let img = cv.imread('canvas');
+    cv.cvtColor(img, img, cv.COLOR_RGBA2RGB, 0);
+    cv.bilateralFilter(img, img, 5, 50, 50, cv.BORDER_DEFAULT);
+    cv.imshow('canvas', img);
+    img.delete();
+}
+
+// Function that produces a mix of the letters 'gan' and the word 'Tetraodontidae'
+function nameGenerator() {
+    const parent1 = 'tetradontidae';
+    const parent2 = 'gan';
+    const n = Math.floor(Math.random() * 3) + 2;
+    const chunks = [];
+    for (let i = 0; i < parent1.length; i += n) {
+        chunks.push(parent1.slice(i, i + n));
+    }
+    const sampleList = [];
+    for (let i = 0; i < 2; i++) {
+        const randomIndex = Math.floor(Math.random() * chunks.length);
+        sampleList.push(chunks[randomIndex]);
+    }
+    sampleList.push(parent2);
+    sampleList.sort(() => Math.random() - 0.5);
+    const name = sampleList.join('');
+    const num = Math.floor(Math.random() * 84);
+
+    return name + '-' + num;
+}
+
+// Function for saving the image with the generated name in the getelementbyid('name') element
+function saveImage() {
+    var name = document.getElementById("name");
+    var link = document.createElement('a');
+    link.download = name.innerHTML + '.png';
+    link.href = document.getElementById('canvas').toDataURL()
+    link.click();
 }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+  <head>
+
+    <meta charset="utf-8" meta name="viewport" content="width=device-width, initial-sale=1.0" />
+    
+    <!-- Imports TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.7.0"> </script>
+
+    <!-- Imports tfjs-vis -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.5.1/dist/tfjs-vis.umd.min.js"></script>
+    
+  </head>
+
+  <style>
+
+  body { background-image:url('gan_2.gif');
+   background-repeat:repeat;
+   background-attachment: fixed;
+   background-size: cover; }
+
+   </style>
+
+    <!-- Defines the container with the create and erase buttons, and the canvas to print an image in -->
+    <div id="container">
+      
+      <h1 style="font-family:Rockwell; font-size: 40px; text-align:center; color:aliceblue; margin-top: 110px;">Create your own Planet</h1>
+      
+      <!-- This defines the canvas which will show the image -->
+      <canvas id="canvas" width="550px" height="550px" style="border:20px solid #b381bf;background-color: #262121;
+      opacity: .8; padding-left: 0; padding-right: 0; margin-top: 20px; margin-left: auto; margin-right: auto; display:block"></canvas>
+
+      <div style="text-align:center">
+        <!-- This button tells the model to return an image for to be displayed in the canvas -->
+        <button class="glow-on-hover" type="button" style="font-family:Rockwell; font-size: 25px; border: none; background:#bbabab; color:aliceblue; margin-top: 20px;" onclick="runModel()">New</button>
+        
+        <!-- This button clears the canvas so that we can create a new planet -->
+        <button class="glow-on-hover" type="button" style="font-family:Rockwell; font-size: 25px; border: none; background:#bbabab; color:aliceblue;" onclick="erase()">Clear</button>
+      </div>
+
+        <div style="position: absolute; font-family:Rockwell; font-size: 19px; color:aliceblue; bottom: 0;">https://github.com/avocardio/ganiverse</div>
+
+    </div>
+
+  </body>
+
+  <!-- Imports the main script file -->
+  <script src="script.js"></script>
+  <script type="text/javascript">
+    function opencvcheck() {
+      document.getElementById('checker').innerHTML="Opencv is Ready."
+    }
+    </script>
+    <script async src="opencv.js" onload="opencvcheck()" type="text/javascript"></script>
+  
+</html>

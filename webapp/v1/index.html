@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Imports TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js"></script>
+
+</head>
+<body style="background-color:#000000">
+
+    <!-- Defines the container with the create and erase buttons, and the canvas to print an image in -->
+    <div id="container" style="text-align: center">
+      
+      <h1 style="color:white">Create a Planet</h1>
+
+      <p id="checker" style="color:white"></p>
+
+      <p id="model_checker" style="color:white"></p>
+
+      <div class="slidecontainer" style="margin: left 50%;">
+        <input type="range" min="-100" max="100" value="0" class="slider" id="slider">
+        <p id="output" style="color:white"></p>
+      </div>
+      <br>
+      <div>
+        <!-- This button tells the model to return an image for to be displayed in the canvas -->
+        <button type="button" onclick="generateCustom()">Create</button>
+        <!-- This button clears the canvas so that we can create a new planet -->
+        <button type="button" onclick="erase()">Clear</button>
+      </div>
+      <br>
+      <div>
+        <!-- This button tells the model to return an image for to be displayed in the canvas -->
+        <button type="button" onclick="generateRandom()">Create random</button>
+      </div>
+      <br>
+      <br>
+      <br>
+      <!-- This defines the canvas which will show the image -->
+      <canvas id="canvas" width="500px" height="500px" style="border:1px solid #000000"></canvas>
+
+      <script src="script.js" onload="loadModel()"></script>
+      <!-- <script async src="opencv.js" onload="opencvcheck()" type="text/javascript"></script> -->
+      <script src="stars.js"></script>
+    </div>
+</body>
+</html>

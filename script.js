@@ -42,8 +42,6 @@ sampleModel.h5 sampleModel
 
 */
 
-// tf.enableDebugMode()
-
 var canvas = document.getElementById("canvas");
 var cW = canvas.width;
 var cH = canvas.height;
@@ -70,6 +68,16 @@ function opencvcheck() {
 
 function name_planet() {
     document.getElementById('name').innerHTML= nameGenerator();
+}
+
+// Function for checking if WebGL is enabled in the browser, if not, prints a message
+function isWebGLAvailable() {
+    try {
+        var canvas = document.createElement('canvas');
+        return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+    } catch (e) {
+        return false;
+    }
 }
 
 async function loadModel(){	

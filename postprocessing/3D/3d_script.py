@@ -27,7 +27,7 @@ if mode == 1:
 
     mesh.texture_map_to_sphere(inplace=True)
     mesh.plot(texture=tex)
-    mesh.save('postprocessing/3D/result/mesh.vtk')
+    mesh.save('postprocessing/3D/result/mesh.stl', texture=tex)
 
 elif mode == 2:
     sphere = pv.Sphere(radius=1, theta_resolution=120, phi_resolution=120, start_theta=270.001, end_theta=270)
@@ -36,4 +36,4 @@ elif mode == 2:
         sphere.active_t_coords[i] = [0.5 + math.atan2(-sphere.points[i, 0], sphere.points[i, 1])/(2 * math.pi), 0.5 + math.asin(sphere.points[i, 2])/math.pi]
     tex = pv.read_texture('postprocessing/3D/temp/generated_image.jpg')
     sphere.plot(texture=tex)
-    sphere.save('postprocessing/3D/result/mesh.vtk')
+    sphere.save('postprocessing/3D/result/mesh.stl', texture=tex)

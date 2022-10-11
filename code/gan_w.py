@@ -121,30 +121,30 @@ class Generator(tf.keras.Model):
         self.g = tf.keras.Sequential()
 
         # Input random noise
-        self.g.add(tf.keras.layers.Dense(16*16*128, use_bias=False, input_shape=(noise_dim,)))
+        self.g.add(tf.keras.layers.Dense(16*16*64, use_bias=False, input_shape=(noise_dim,)))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 
         # Reshape to 2D
-        self.g.add(tf.keras.layers.Reshape((16,16,128)))
+        self.g.add(tf.keras.layers.Reshape((16,16,64)))
 
         # Upsample to 32x32
-        self.g.add(tf.keras.layers.Conv2DTranspose(filters=128, kernel_size=5, strides=2, padding='same', use_bias=False))
-        self.g.add(tf.keras.layers.BatchNormalization())
-        self.g.add(tf.keras.layers.LeakyReLU())
-
-        # Upsample to 64x64
         self.g.add(tf.keras.layers.Conv2DTranspose(filters=64, kernel_size=5, strides=2, padding='same', use_bias=False))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 
-        # Upsample to 128x128
+        # Upsample to 64x64
         self.g.add(tf.keras.layers.Conv2DTranspose(filters=32, kernel_size=5, strides=2, padding='same', use_bias=False))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 
-        # Upsample to 256x256
+        # Upsample to 128x128
         self.g.add(tf.keras.layers.Conv2DTranspose(filters=16, kernel_size=5, strides=2, padding='same', use_bias=False))
+        self.g.add(tf.keras.layers.BatchNormalization())
+        self.g.add(tf.keras.layers.LeakyReLU())
+
+        # Upsample to 256x256
+        self.g.add(tf.keras.layers.Conv2DTranspose(filters=8, kernel_size=5, strides=2, padding='same', use_bias=False))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 

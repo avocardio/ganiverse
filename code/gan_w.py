@@ -160,10 +160,6 @@ class Generator(tf.keras.Model):
     def call(self, inputs):
         return self.g(inputs)
 
-tempgen = Generator()
-tempgen(tf.random.normal([1, noise_dim]))
-print(tempgen.summary())
-
 # Discriminator class
 class Discriminator(tf.keras.Model):
     def __init__(self):

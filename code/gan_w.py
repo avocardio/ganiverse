@@ -121,52 +121,48 @@ class Generator(tf.keras.Model):
         self.g = tf.keras.Sequential()
 
         # Input random noise
-        self.g.add(tf.keras.layers.Dense(16*16*256, use_bias=False, input_shape=(noise_dim,)))
+        self.g.add(tf.keras.layers.Dense(16*16*128, use_bias=False, input_shape=(noise_dim,)))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 
         # Reshape to 2D
-        self.g.add(tf.keras.layers.Reshape((16,16,256)))
+        self.g.add(tf.keras.layers.Reshape((16,16,128)))
 
         # Upsample to 32x32
-        self.g.add(tf.keras.layers.Conv2DTranspose(filters=256, kernel_size=5, strides=1, padding='same', use_bias=False))
+        self.g.add(tf.keras.layers.Conv2DTranspose(filters=128, kernel_size=5, strides=2, padding='same', use_bias=False))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 
         # Upsample to 64x64
-        self.g.add(tf.keras.layers.Conv2DTranspose(filters=256, kernel_size=5, strides=2, padding='same', use_bias=False))
-        self.g.add(tf.keras.layers.BatchNormalization())
-        self.g.add(tf.keras.layers.LeakyReLU())
-
-        # Upsample to 128x128
         self.g.add(tf.keras.layers.Conv2DTranspose(filters=64, kernel_size=5, strides=2, padding='same', use_bias=False))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 
-        # Upsample to 256x256
+        # Upsample to 128x128
         self.g.add(tf.keras.layers.Conv2DTranspose(filters=32, kernel_size=5, strides=2, padding='same', use_bias=False))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 
-        # Upsample to 512x512
+        # Upsample to 256x256
         self.g.add(tf.keras.layers.Conv2DTranspose(filters=16, kernel_size=5, strides=2, padding='same', use_bias=False))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 
-        # Output
+        # Upsample to 512x512
         self.g.add(tf.keras.layers.Conv2DTranspose(filters=4, kernel_size=5, strides=2, padding='same', use_bias=False))
         self.g.add(tf.keras.layers.BatchNormalization())
         self.g.add(tf.keras.layers.LeakyReLU())
 
-        # Downsample
-        self.g.add(tf.keras.layers.Conv2D(filters=4, kernel_size=13, strides=1, padding='valid', activation='relu'))
+        # A last downsampling to 500x500x3
+        self.g.add(tf.keras.layers.Conv2D(filters=3, kernel_size=13, strides=1, padding='valid', use_bias=False, activation='tanh'))
 
-        # Output 500x500 image
-        self.g.add(tf.keras.layers.Conv2D(filters=3, kernel_size=5, strides=1, padding='same', activation='tanh'))
 
     def call(self, inputs):
         return self.g(inputs)
 
+tempgen = Generator()
+tempgen(tf.random.normal([1, noise_dim]))
+print(tempgen.summary())
 
 # Discriminator class
 class Discriminator(tf.keras.Model):
@@ -205,8 +201,6 @@ class Discriminator(tf.keras.Model):
 
     def call(self, inputs):
         return self.d(inputs)
-
-
 
 # Generate images from noise
 generated_image = Generator().call(random_seed) # Image is in range [-1, 1]

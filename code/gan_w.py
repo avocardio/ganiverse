@@ -96,7 +96,7 @@ else:
 images = tf.keras.utils.image_dataset_from_directory(
   DATA_PATH,
   seed=42,
-  image_size=(250,250),
+  image_size=(500,500),
   batch_size=16,
   label_mode=None,
   shuffle=True)
@@ -267,7 +267,7 @@ def train_step(images):
             disc_loss += 1.5 * gp # Add gradient penalty to the loss with a weight of 1.5
 
         # Backpropagate the gradients
-        gradients_of_discriminator = disc_tape.gradient(disc_loss, discriminator.trainabl1e_variables)
+        gradients_of_discriminator = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
         discriminator_optimizer.apply_gradients(zip(gradients_of_discriminator, discriminator.trainable_variables))
 
     # For every training iteration, we call the generator once
@@ -308,7 +308,7 @@ def train(dataset, epochs):
 
     entire_time = time.time()
 
-    send_text('Training starting...')
+    # send_text('Training starting...')
 
     # Main training loop function
     for epoch in range(epochs):

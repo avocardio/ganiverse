@@ -96,7 +96,7 @@ else:
 images = tf.keras.utils.image_dataset_from_directory(
   DATA_PATH,
   seed=42,
-  image_size=(500,500),
+  image_size=(250,250),
   batch_size=16,
   label_mode=None,
   shuffle=True)

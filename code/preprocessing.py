@@ -36,13 +36,13 @@ def get_smallest_image_dimensions(path):
 
 # Paths
 try:
-    data_dir = sys.argv[1]
+    data_dir = str(sys.argv[1])
 except IndexError:
     data_dir = 'data/raw/*/*'
 
 # Specify image size
 try:
-    img_size = sys.argv[2]
+    img_size = (int(sys.argv[2]), int(sys.argv[2]))
 except IndexError:
     img_size = get_smallest_image_dimensions(data_dir)
 

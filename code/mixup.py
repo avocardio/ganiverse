@@ -41,12 +41,12 @@ except IndexError:
     data_dir = 'data/raw/*/*'
 
 try:
-    number_of_mixups = sys.argv[2]
+    number_of_mixups = int(sys.argv[2])
 except IndexError:
     number_of_mixups = 1000
 
 try:
-    img_size = sys.argv[3]
+    img_size = (int(sys.argv[3]),int(sys.argv[3]))
 except IndexError:
     img_size = get_smallest_image_dimensions(data_dir)
 
@@ -100,6 +100,6 @@ def mixup(array_images, alpha, n):
     return mixup_images
 
 # Generate mixup images by 0.5
-mixup_images = mixup(array_images, 0.5, int(number_of_mixups))
+mixup_images = mixup(array_images, 0.5, number_of_mixups)
 
 print('Total mixup images: ', len(mixup_images))

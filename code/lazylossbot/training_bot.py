@@ -7,14 +7,22 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackContex
 import os
 import csv
 import matplotlib.pyplot as plt
+import json
 matplotlib.use('Agg')
 #matplotlib.use("TKAgg")
+
+with open('credentials.json') as file:
+    credentials = json.load(file)
+
+KEY = credentials['TELEGRAM_TOKEN']
+ID = credentials['CHAT_ID']
+
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-token = " " # Insert your token here
+token = KEY # Insert your token here
 
 updater = Updater(token, use_context=True)
 dp = updater.dispatcher
@@ -28,7 +36,7 @@ HISTORY_PATH = 'code/lazylossbot/history.txt'
 PLOT_PATH = 'code/lazylossbot/plot.png'
 GENERATED_PATH = 'data/generated/'
 
-CHAT_ID = # Input your telegram chat ID
+CHAT_ID = ID
 
 # -----------------------------------------------------------------------
 

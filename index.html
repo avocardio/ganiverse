@@ -4,8 +4,14 @@
 <head>
     <meta charset="utf-8" meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ganiverse</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" 
+          href="style.css" />
 
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron"
+          rel="stylesheet">
+          
     <!-- Imports TensorFlow.js -->
     <!-- <script src="https://unpkg.com/@tensorflow/tfjs"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.1/dist/tf.min.js"></script>
@@ -19,42 +25,63 @@
 <body style="background-color:#000000">
 
     <!-- Defines the container with the create and erase buttons, and the canvas to print an image in -->
-    <div id="container" style="text-align: center">
+    <div id="container" >
+
+      <div class="column_left">
+        <h1 class="title">
+          Create a Fantasy Planet.
+        </h1>
+        
+
+        <div class="text" >
+          <p id="checker" style="color:white"></p>
+
+          <p id="model_checker" style="color:white"></p>
+
+        </div>
+      </div>
       
-      <h1 style="color:white">Create a Planet</h1>
+      <div class="column_right">
 
-      <p id="checker" style="color:white"></p>
+        <br>
+        <br>
+        <br>
 
-      <p id="model_checker" style="color:white"></p>
+        <!-- This defines the canvas which will show the image -->
+        <canvas id="canvas" width="500px" height="500px" style="border:1px solid #000000"></canvas>
 
-      <div class="slidecontainer" style="margin: left 50%;">
-        <input type="range" min="-100" max="100" value="0" class="slider" id="slider">
-        <p id="output" style="color:white"></p>
+        <h2 class="cyberpunk glitched">H2 title glitched</h2>
+
+        <!-- Only show the nametag, if the button generateRandom is pressed -->
+        <p class="cyberpunk glitched" id="name" style="color:white; font-size: 30px; font-family: Orbitron;"></p>
+
+
+        <div>
+          <!-- This button tells the model to return an image for to be displayed in the canvas -->
+          <button type="button" onclick="generateCustom()">Create</button>
+          <!-- Make a button that saves the image -->
+          <button type="button" onclick="saveImage()">Save</button>
+        </div>
+
+        <br>
+        <div>
+          <!-- This button tells the model to return an image for to be displayed in the canvas -->
+          <!-- After generating, create a random name with the function generateName() and display it below -->
+          <button type="button" onclick="generateRandom()">Create random</button>
+        </div>
+
+        <br>
+
+        <div class="slidecontainer" style="margin: left 50%;">
+          <input type="range" min="-100" max="100" value="0" class="slider" id="slider">
+          <p id="output" style="color:white"></p>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
       </div>
-      <br>
-      <div>
-        <!-- This button tells the model to return an image for to be displayed in the canvas -->
-        <button type="button" onclick="generateCustom()">Create</button>
-        <!-- Make a button that saves the image -->
-        <button type="button" onclick="saveImage()">Save</button>
-      </div>
-      <br>
-      <div>
-        <!-- This button tells the model to return an image for to be displayed in the canvas -->
-        <!-- After generating, create a random name with the function generateName() and display it below -->
-        <button type="button" onclick="generateRandom()">Create random</button>
-      </div>
-      <br>
-      <br>
-      <br>
-      <!-- This defines the canvas which will show the image -->
-      <canvas id="canvas" width="500px" height="500px" style="border:1px solid #000000"></canvas>
-      <br>
-      <br>
-      <br>
-      <!-- Only show the nametag, if the button generateRandom is pressed -->
-      <p class="nametag" id="name" style="color:white; font-size: 30px"></p>
-
 
       <script src="script.js" onload="loadModel()" onload="isWebGLAvailable()"></script>
       <!-- <script async src="opencv.js" onload="opencvcheck()" type="text/javascript"></script> -->

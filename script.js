@@ -81,9 +81,13 @@ function isWebGLAvailable() {
 }
 
 async function loadModel(){	
+
+    document.getElementById('model_checker').innerHTML="Nothing."
   	
     // loads the model
-    generator = await tf.loadGraphModel('model/model.json');    
+    generator = await tf.loadGraphModel('model/model.json');  
+    
+    document.getElementById('model_checker').innerHTML="Weights are loaded."
 
     const input = tf.randomNormal([1, 100]);
     

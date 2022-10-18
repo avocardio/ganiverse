@@ -13,7 +13,7 @@ from skimage.metrics import structural_similarity as ssim
 
 def new_loss(n, alpha): # Parameters: n = number of images in lookback, alpha = weight of SSIM loss
 
-    data_dir = 'data/generated/'
+    data_dir = 'data/generated_256_4m/'
 
     # If the n images are not already generated, return 0
     if len(os.listdir(data_dir)) <= n:

@@ -66,9 +66,9 @@ def get_smallest_image_dimensions(path):
 # Global Variables
 
 DATA_PATH = 'data/augmented/'
-GENERATED_PATH = 'data/generated/'
-SAVED_MODEL_PATH = 'data/saved_model/new/'
-SAVED_MODEL_PATH_50 = 'data/saved_model/50/'
+GENERATED_PATH = 'data/generated_256_1.8m/'
+SAVED_MODEL_PATH = 'data/saved_model/256_1.8m/'
+SAVED_MODEL_PATH_50 = 'data/saved_model/256_1.8m/50/'
 
 if os.path.exists(GENERATED_PATH):
     os.rmdir(GENERATED_PATH)

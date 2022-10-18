@@ -34,7 +34,7 @@ dp = updater.dispatcher
 DATA_PATH = 'data/augmented/'
 HISTORY_PATH = 'code/lazylossbot/history.txt'
 PLOT_PATH = 'code/lazylossbot/plot.png'
-GENERATED_PATH = 'data/generated/'
+GENERATED_PATH = 'data/generated_256_4m/'
 
 CHAT_ID = ID
 

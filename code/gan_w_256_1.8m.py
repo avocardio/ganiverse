@@ -345,7 +345,7 @@ def train(dataset, epochs):
 print("Starting to train...")
 
 # Train the model for 500 epochs
-gen_losses, disc_losses = train(data, 500)
+gen_losses, disc_losses = train(data, 1000)
 
 send_text('Training finished.')
 

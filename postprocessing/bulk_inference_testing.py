@@ -26,7 +26,7 @@ Better: saver = tf.train.Saver(tf.model_variables())
 if len(sys.argv) > 1:
     path = sys.argv[1]
 else: 
-    path = 'data/saved_model/256_4m/generator_model'
+    path = 'data/saved_model/256_1.8m/generator_model'
 
 start = time.time()
 

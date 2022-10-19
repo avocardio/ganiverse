@@ -26,7 +26,7 @@ Better: saver = tf.train.Saver(tf.model_variables())
 if len(sys.argv) > 1:
     path = sys.argv[1]
 else: 
-    path = 'data/saved_model/old/generator_model'
+    path = 'data/saved_model/256_4m/generator_model'
 
 start = time.time()
 
@@ -39,7 +39,7 @@ for i in range(10):
     random_noise = tf.random.normal(shape=(1, 100))
     predictions = model(random_noise)
     img_to_show = (predictions[0].numpy() + 1) / 2
-    img_to_show = np.reshape(img_to_show, (500, 500, 3))
+    img_to_show = np.reshape(img_to_show, (256, 256, 3))
     plt.subplot(2, 5, i + 1)
     plt.subplots_adjust(wspace=0.1, hspace=0.1)
     plt.imshow(img_to_show)

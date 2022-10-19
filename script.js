@@ -42,6 +42,8 @@ sampleModel.h5 sampleModel
 
 */
 
+var tfmodel = 'model/model.json';
+
 var canvas = document.getElementById("canvas");
 var cW = canvas.width;
 var cH = canvas.height;
@@ -85,7 +87,7 @@ async function loadModel(){
     document.getElementById('model_checker').innerHTML="Nothing."
   	
     // loads the model
-    generator = await tf.loadGraphModel('model/model.json');  
+    generator = await tf.loadGraphModel(tfmodel);  
     
     document.getElementById('model_checker').innerHTML="Weights are loaded."
 
@@ -99,6 +101,13 @@ async function loadModel(){
 
 async function generateCustom() {
 
+    if (tfmodel == 'model/model.json') {
+        var dims = 500;
+    }
+    else if (tfmodel == 'model2/model.json') {
+        var dims = 256;
+    }
+
     await ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     let input = document.getElementById("slider").value
@@ -110,8 +119,8 @@ async function generateCustom() {
     // Prediction
     outputtensor = await generator.predict(inputtensor)
 
-    outputtensor = outputtensor.reshape([500, 500, 3])
-    outputtensor = tf.concat([outputtensor, tf.ones([500, 500, 1])], 2)
+    outputtensor = outputtensor.reshape([dims, dims, 3])
+    outputtensor = tf.concat([outputtensor, tf.ones([dims, dims, 1])], 2)
     result = outputtensor.dataSync()
 
     //result = outputtensor.mul([1, 1, 1]).dataSync()
@@ -119,13 +128,20 @@ async function generateCustom() {
         result[i]=result[i]*255.0 + 128.0;
     }
 
-    ctx.putImageData(new ImageData(Uint8ClampedArray.from(result), 500, 500), 0, 0);
+    ctx.putImageData(new ImageData(Uint8ClampedArray.from(result), dims, dims), 0, 0);
 
     name_planet();
     document.getElementById("name").style.display = "block";
 }
 
 async function generateRandom() {
+    
+    if (tfmodel == 'model/model.json') {
+        var dims = 500;
+    }
+    else if (tfmodel == 'model2/model.json') {
+        var dims = 256;
+    }
 
     await ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -139,8 +155,8 @@ async function generateRandom() {
     // Prediction
     outputtensor = await generator.predict(inputtensor)
 
-    outputtensor = outputtensor.reshape([500, 500, 3])
-    outputtensor = tf.concat([outputtensor, tf.ones([500, 500, 1])], 2)
+    outputtensor = outputtensor.reshape([dims, dims, 3])
+    outputtensor = tf.concat([outputtensor, tf.ones([dims, dims, 1])], 2)
     result = outputtensor.dataSync()
 
     //result = outputtensor.mul([1, 1, 1]).dataSync()
@@ -151,7 +167,7 @@ async function generateRandom() {
     // Apply OpenCV filter
     // result = await applyFilter(result)
 
-    ctx.putImageData(new ImageData(Uint8ClampedArray.from(result), 500, 500), 0, 0);
+    ctx.putImageData(new ImageData(Uint8ClampedArray.from(result), dims, dims), 0, 0);
 
     name_planet();
     document.getElementById("name").style.display = "block";
@@ -159,7 +175,7 @@ async function generateRandom() {
 
 var generator;
 
-tf.loadGraphModel('model/model.json').then(async (resolve) => {
+tf.loadGraphModel(tfmodel).then(async (resolve) => {
     generator=resolve
 });
 

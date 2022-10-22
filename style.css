@@ -21,7 +21,7 @@
     border-radius: 0px 20px 0px 20px;
     background-color: rgba(185, 117, 185, 0.479);
     width: 250px;
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;

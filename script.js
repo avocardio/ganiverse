@@ -42,7 +42,16 @@ sampleModel.h5 sampleModel
 
 */
 
-var tfmodel = 'model2/model.json';
+var tfmodel = 'model/model.json';
+
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMobile()) {
+   tfmodel = 'model2/model.json';
+}
+
 
 var canvas = document.getElementById("canvas");
 var cW = canvas.width;
@@ -72,16 +81,6 @@ function name_planet() {
     document.getElementById('name').innerHTML= nameGenerator();
 }
 
-// Function for checking if WebGL is enabled in the browser, if not, prints a message
-function isWebGLAvailable() {
-    try {
-        var canvas = document.createElement('canvas');
-        return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-    } catch (e) {
-        return false;
-    }
-}
-
 async function loadModel(){	
 
     document.getElementById('model_checker').innerHTML="Nothing."
@@ -103,9 +102,13 @@ async function generateCustom() {
 
     if (tfmodel == 'model/model.json') {
         var dims = 500;
+        document.getElementById("canvas").width = dims;
+        document.getElementById("canvas").height = dims;
     }
     else if (tfmodel == 'model2/model.json') {
         var dims = 256;
+        document.getElementById("canvas").width = dims;
+        document.getElementById("canvas").height = dims;
     }
 
     await ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -138,9 +141,13 @@ async function generateRandom() {
     
     if (tfmodel == 'model/model.json') {
         var dims = 500;
+        document.getElementById("canvas").width = dims;
+        document.getElementById("canvas").height = dims;
     }
     else if (tfmodel == 'model2/model.json') {
         var dims = 256;
+        document.getElementById("canvas").width = dims;
+        document.getElementById("canvas").height = dims;
     }
 
     await ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -172,12 +179,6 @@ async function generateRandom() {
     name_planet();
     document.getElementById("name").style.display = "block";
 }
-
-var generator;
-
-tf.loadGraphModel(tfmodel).then(async (resolve) => {
-    generator=resolve
-});
 
 // Function for applying the OpenCV filter cv.bilateralFilter(result, 5, 50, 50, cv.BORDER_DEFAULT) to the generated image
 async function applyFilter() {

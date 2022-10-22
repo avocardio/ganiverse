@@ -42,7 +42,7 @@ sampleModel.h5 sampleModel
 
 */
 
-var tfmodel = 'model/model.json';
+var tfmodel = 'model2/model.json';
 
 var canvas = document.getElementById("canvas");
 var cW = canvas.width;

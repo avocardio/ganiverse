@@ -52,6 +52,25 @@ if (isMobile()) {
    tfmodel = 'model2/model.json';
 }
 
+function showPlanet() {
+    const $planet = document.querySelector('.planet')
+    // Animate the planet on load
+    $planet?.classList.remove('slide-in')
+    setTimeout(() => {
+        $planet.classList.add('slide-in')
+        $planet.style.display = 'block'
+    })
+}
+
+function showScanner() {
+    const $scanner = document.querySelector('.scanner')
+    $scanner.style.display = 'block'
+}
+
+function hideScanner() {
+    const $scanner = document.querySelector('.scanner')
+    $scanner.style.display = 'none'
+}
 
 var canvas = document.getElementById("canvas");
 var cW = canvas.width;
@@ -83,12 +102,8 @@ function name_planet() {
 
 async function loadModel(){	
 
-    document.getElementById('model_checker').innerHTML="Nothing."
-  	
     // loads the model
     generator = await tf.loadGraphModel(tfmodel);  
-    
-    document.getElementById('model_checker').innerHTML="Weights are loaded."
 
     const input = tf.randomNormal([1, 100]);
     
@@ -99,6 +114,8 @@ async function loadModel(){
 }
 
 async function generateCustom() {
+
+    showScanner();
 
     if (tfmodel == 'model/model.json') {
         var dims = 500;
@@ -135,9 +152,12 @@ async function generateCustom() {
 
     name_planet();
     document.getElementById("name").style.display = "block";
+    hideScanner();
 }
 
 async function generateRandom() {
+
+    showScanner();
     
     if (tfmodel == 'model/model.json') {
         var dims = 500;
@@ -178,6 +198,7 @@ async function generateRandom() {
 
     name_planet();
     document.getElementById("name").style.display = "block";
+    hideScanner();
 }
 
 // Function for applying the OpenCV filter cv.bilateralFilter(result, 5, 50, 50, cv.BORDER_DEFAULT) to the generated image

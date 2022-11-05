@@ -1,71 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta
+            charset="utf-8"
+            meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Ganiverse</title>
+        <link rel="stylesheet" href="style.css" />
+        <!-- Favicon -->
+        <link rel="icon" href="favicon.ico" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Orbitron"
+            rel="stylesheet"
+        />
 
-<head>
-    <meta charset="utf-8" meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ganiverse</title>
-    <link rel="stylesheet" href="style.css" />
+        <!-- Imports TensorFlow.js -->
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.1/dist/tf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+        <script
+            src="./script.js"
+            onload="loadModel()"
+            onload="isWebGLAvailable()"
+            defer
+        ></script>
+        <script async src="./opencv.js" defer></script>
+        <script src="./stars.js" defer></script>
+    </head>
+    <body class="scroll" style="background-color: #000000">
+        <!-- Defines the container with the create and erase buttons, and the canvas to print an image in -->
+        <div class="container">
+            <div class="left-side">
+                <h1 class="title">Create a Fantasy Planet.</h1>
+                <div class="text">
+                    <br>
+                    <p id="checker" style="color: white"></p>
+                    <p id="model_checker" style="color: white"></p>
+                </div>
+                <!-- This defines the canvas which will show the image -->
+                <div class="planet-container">
+                    <canvas
+                        class="planet"
+                        id="canvas"
+                        height="500px"
+                        width="500px"
+                    ></canvas>
+                    <div class="scanner"></div>
+                </div>
+                <div class="name_text">
+                    <h2 id="name" class="cyberpunk glitched mb-2"></h2>
+                </div>
+            </div>
 
-    <!-- Imports TensorFlow.js -->
-    <!-- <script src="https://unpkg.com/@tensorflow/tfjs"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.1/dist/tf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+            <div class="right-side">
+                <!-- Only show the nametag, if the button generateRandom is pressed -->
+                <!-- <p
+                    class="cyberpunk glitched"
+                    id="name"
+                    style="color: white; font-size: 30px; font-family: Orbitron"
+                ></p> -->
 
-    <!-- Import opencv from the file opecv.js -->
-    <script src="opencv.js"></script>
+                <div class="buttons mb-2">
+                    <!-- This button tells the model to return an image for to be displayed in the canvas -->
+                    <button
+                        class="cyberpunk2077 blue"
+                        type="button"
+                        onclick="generateRandom(); showPlanet();"
+                    >
+                        Create
+                    </button>
+                    <!-- Make a button that saves the image -->
+                    <button
+                        class="cyberpunk2077 red"
+                        type="button"
+                        onclick="saveImage() "
+                    >
+                        Save
+                    </button>
+                    <!-- This button tells the model to return an image for to be displayed in the canvas -->
+                    <!-- After generating, create a random name with the function generateName() and display it below -->
+                    <button
+                    class="cyberpunk2077 green"
+                    type="button"
+                    onclick="generateCustom(); showPlanet();"
+                >
+                    Create custom
+                </button>
+                </div>
 
-</head>
-<body style="background-color:#000000">
+                <input
+                    type="range"
+                    min="-100"
+                    max="100"
+                    value="0"
+                    class="slider mb-2"
+                    id="slider"
+                />
+                <p id="output" style="color: white"></p>
 
-    <!-- Defines the container with the create and erase buttons, and the canvas to print an image in -->
-    <div id="container" style="text-align: center">
-      
-      <h1 style="color:white">Create a Planet</h1>
-
-      <p id="checker" style="color:white"></p>
-
-      <p id="model_checker" style="color:white"></p>
-
-      <div class="slidecontainer" style="margin: left 50%;">
-        <input type="range" min="-100" max="100" value="0" class="slider" id="slider">
-        <p id="output" style="color:white"></p>
-      </div>
-      <br>
-      <div>
-        <!-- This button tells the model to return an image for to be displayed in the canvas -->
-        <button type="button" onclick="generateCustom()">Create</button>
-        <!-- Make a button that saves the image -->
-        <button type="button" onclick="saveImage()">Save</button>
-      </div>
-      <br>
-      <div>
-        <!-- This button tells the model to return an image for to be displayed in the canvas -->
-        <!-- After generating, create a random name with the function generateName() and display it below -->
-        <button type="button" onclick="generateRandom()">Create random</button>
-      </div>
-      <br>
-      <br>
-      <br>
-      <!-- Center the canvas within the div -->
-      <div style="margin: auto; width: 50%;">
-        <canvas id="canvas"></canvas>
-      </div>
-      <!-- This defines the canvas which will show the image -->
-  
-      <br>
-      <br>
-      <br>
-      
-      <!-- Only show the nametag, if the button generateRandom is pressed -->
-      <p class="nametag" id="name" style="color:white; font-size: 30px"></p>
-
-
-      <script src="script.js" onload="loadModel()" onload="isWebGLAvailable()"></script>
-      <!-- <script async src="opencv.js" onload="opencvcheck()" type="text/javascript"></script> -->
-      <script async src="opencv.js"></script>
-      <script src="stars.js"></script>
-      <script src="effects.js"></script>
-    </div>
-</body>
+                <div class="description_box">
+                    <p class="cyberpunk">
+                        This project uses a 
+                        <a href="https://en.wikipedia.org/wiki/Generative_adversarial_network">GAN</a>
+                        to generate fantasy planets. The
+                        model was trained on images of real planets in our solar system. 
+                        It is implemented in the browser for display using TensorFlow.js. 
+                        
+                        <a href="ganiverse.pdf" target="_blank">[Paper]</a>
+                        <a href="https://github.com/avocardio/ganiverse" target="_blank">[GitHub]</a>
+        
+                        <br>
+                        (by Burmester & Kalcher, 2022)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

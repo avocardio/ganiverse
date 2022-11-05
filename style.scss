@@ -1,0 +1,802 @@
+/* Cyberpunk styles */
+@font-face {
+    font-family: cyberpunk;
+    src: url('CyberwayRiders-lg97d.ttf');
+}
+
+:root {
+    --primary-color: hsl(305, 96%, 46%);
+    --secondary-color: hsl(114, 76%, 45%);
+    --black-1: #000;
+    --black-2: #333;
+    --glitched-duration: 0.9s;
+    --glitched-long-duration: 3s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    min-height: 220vh;
+    padding: 30px;
+}
+
+body * {
+    font-family: 'Advent Pro', arial;
+}
+
+// Utilities
+
+.btn {
+    display: block;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: white;
+    padding: 10px 25px;
+    font-weight: 500;
+    background: transparent;
+    border-radius: 5px;
+    border-width: 3px;
+    border-style: solid;
+    border-image: linear-gradient(
+        315deg,
+        var(--secondary-color) 0%,
+        var(--primary-color) 74%
+    );
+    border-image-slice: 1;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+        7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    outline: none;
+    overflow: hidden;
+}
+
+.glitch-effect {
+    position: relative;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+
+    &--1 {
+        &:before,
+        &:after {
+            content: 'CREATE';
+        }
+    }
+    &--2 {
+        &:before,
+        &:after {
+            content: 'SAVE';
+        }
+    }
+    &--3 {
+        &:before,
+        &:after {
+            content: 'CREATE RANDOM';
+        }
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 8px 0;
+        width: 100%;
+        -webkit-clip: rect(0px, 0px, 0px, 0px);
+        clip: rect(0px, 0px, 0px, 0px);
+        background: #fff;
+        color: #000;
+    }
+
+    &:before {
+        left: -3px;
+        top: -2px;
+        text-shadow: 2px 0 #fff;
+        box-shadow: 2px 0 #fff;
+    }
+
+    &:after {
+        left: 2px;
+        bottom: -2px;
+        text-shadow: -1px 0 #fff;
+        box-shadow: -1px 0 #fff;
+    }
+
+    &:hover {
+        background: var(--primary-color);
+        color: black;
+    }
+
+    &:hover:before {
+        animation: glitch-test 1.5s infinite linear alternate-reverse;
+    }
+
+    &:hover:after {
+        animation: glitch-test 2s infinite linear alternate;
+    }
+}
+
+@keyframes glitch-test {
+    0% {
+        clip: rect(-3px, 600px, 0px, 0px);
+    }
+    5.88235% {
+        clip: rect(0px, 600px, 0px, 0px);
+    }
+    11.76471% {
+        clip: rect(-3px, 600px, 0px, 0px);
+    }
+    17.64706% {
+        clip: rect(-3px, 600px, 0px, 0px);
+    }
+    23.52941% {
+        clip: rect(100px, 600px, 100px, 0px);
+    }
+    29.41176% {
+        clip: rect(0px, 600px, 600px, 0px);
+    }
+    35.29412% {
+        clip: rect(100px, 600px, 0px, 0px);
+    }
+    41.17647% {
+        clip: rect(0px, 600px, 600px, 0px);
+    }
+    47.05882% {
+        clip: rect(100px, 600px, 0px, 0px);
+    }
+    52.94118% {
+        clip: rect(-3px, 600px, 0px, 0px);
+    }
+    58.82353% {
+        clip: rect(100px, 450px, 100px, 0px);
+    }
+    64.70588% {
+        clip: rect(0px, 450px, 0px, 0px);
+    }
+    70.58824% {
+        clip: rect(100px, 450px, 100px, 0px);
+    }
+    76.47059% {
+        clip: rect(0px, 450px, 0px, 0px);
+    }
+    82.35294% {
+        clip: rect(0px, 450px, 0px, 0px);
+    }
+    88.23529% {
+        clip: rect(0px, 450px, 0px, 0px);
+    }
+    94.11765% {
+        clip: rect(0px, 450px, 0px, 0px);
+    }
+    100% {
+        clip: rect(0px, 450px, 0px, 0px);
+    }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scroll {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.mb-2 {
+    margin-bottom: 20px;
+}
+
+.container {
+    --padding: 10%;
+    .left-side {
+        padding: var(--padding);
+        // background: green;
+    }
+
+    .right-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: fit-content;
+        padding: var(--padding);
+        position: relative;
+        // background: red;
+        .buttons {
+            display: grid;
+        }
+    }
+
+    @media (min-width: 1000px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}
+
+input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 200px;
+}
+
+/***** Track Styles *****/
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type='range']::-webkit-slider-runnable-track {
+    background: var(--secondary-color);
+    height: 3px;
+}
+
+/******** Firefox ********/
+input[type='range']::-moz-range-track {
+    background: var(--secondary-color);
+    height: 3px;
+}
+
+/***** Thumb Styles *****/
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    background-color: var(--primary-color);
+    // border-radius: 3px;
+    margin-top: -8px;
+    height: 20px;
+    width: 10px;
+}
+
+.slide-in {
+    animation: 0.3s ease-in slide-in forwards;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* A class for the nametag, that has a weirdly shaped rectangle */
+
+.nametag {
+    border: 5px inset rgba(255, 190, 253, 0.399);
+    border-radius: 0px 20px 0px 20px;
+    background-color: rgba(185, 117, 185, 0.479);
+    width: 250px;
+    /* change the font to something futuristic */
+    font-family: 'Courier New', Courier, monospace;
+    display: none;
+}
+
+/* A class for the nametag test */
+
+.nametag_test {
+    font-family: 'Orbitron', sans-serif;
+    display: none;
+}
+
+/* A class for the text */
+.text {
+    text-align: center;
+    opacity: 0.5;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    color: deepskyblue;
+}
+
+/* A class for the title */
+.title {
+    font-size: 50px;
+    font-family: 'cyberpunk';
+    letter-spacing: 8px;
+    color: rgb(211, 230, 5);
+    text-shadow: 2px 2px 4px #2cc81b;
+    text-align: center;
+}
+
+.absolute {
+    position: fixed;
+}
+
+/* Titles */
+
+h1.cyberpunk,
+h2.cyberpunk,
+h3.cyberpunk,
+h4.cyberpunk {
+    font-size: 2rem;
+    line-height: 2.2rem;
+    font-weight: 200;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+h2.cyberpunk {
+    color: white;
+    font-size: 1.7rem;
+    line-height: 1.9rem;
+    font-weight: 300;
+}
+
+h3.cyberpunk {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+}
+
+h4.cyberpunk {
+    font-size: 1rem;
+    line-height: 1.2rem;
+    font-weight: 700;
+}
+
+h1.cyberpunk:before,
+h2.cyberpunk:before,
+h3.cyberpunk:before,
+h4.cyberpunk:before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 2px;
+    width: 100%;
+    height: 10px;
+    background-color: #000;
+    clip-path: polygon(
+        0px 0px,
+        85px 0px,
+        90px 5px,
+        100% 5px,
+        100% 6px,
+        85px 6px,
+        80px 10px,
+        0px 10px
+    );
+}
+
+h1.cyberpunk.glitched {
+    animation-name: h1glitched;
+    animation-duration: calc(var(--glitched-duration) * 1.4);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+h2.cyberpunk.glitched {
+    width: fit-content;
+    animation-name: h1glitched;
+    animation-duration: calc(var(--glitched-duration) * 1.7);
+    animation-iteration-count: infinite;
+    animation-direction: reverse;
+    animation-timing-function: linear;
+}
+
+h3.cyberpunk.glitched {
+    animation-name: h1glitched;
+    animation-duration: calc(var(--glitched-duration) * 1.1);
+    animation-iteration-count: infinite;
+    animation-direction: reverse;
+    animation-timing-function: ease-out;
+}
+
+h4.cyberpunk.glitched {
+    animation-name: h1glitched;
+    animation-duration: calc(var(--glitched-duration) * 2.1);
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes h1glitched {
+    0% {
+        transform: skew(-20deg);
+        left: -4px;
+    }
+    10% {
+        transform: skew(-20deg);
+        left: -4px;
+    }
+    11% {
+        transform: skew(0deg);
+        left: 2px;
+    }
+    50% {
+        transform: skew(0deg);
+    }
+    51% {
+        transform: skew(10deg);
+    }
+    59% {
+        transform: skew(10deg);
+    }
+    60% {
+        transform: skew(0deg);
+    }
+    100% {
+        transform: skew(0deg);
+    }
+}
+
+h1.cyberpunk.glitched:before {
+    animation-name: h1beforeglitched;
+    animation-duration: calc(var(--glitched-duration) * 2);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes h1beforeglitched {
+    0% {
+        transform: skew(-20deg);
+        left: -4px;
+        clip-path: polygon(
+            0px 0px,
+            85px 0px,
+            90px 5px,
+            100% 5px,
+            100% 6px,
+            85px 6px,
+            80px 10px,
+            0px 10px
+        );
+    }
+    10% {
+        transform: skew(-20deg);
+        left: -4px;
+        clip-path: polygon(
+            0px 0px,
+            85px 0px,
+            90px 5px,
+            100% 5px,
+            100% 6px,
+            85px 6px,
+            80px 10px,
+            0px 10px
+        );
+    }
+    11% {
+        transform: skew(0deg);
+        left: 2px;
+        clip-path: polygon(
+            0px 0px,
+            85px 0px,
+            90px 5px,
+            100% 5px,
+            100% 6px,
+            85px 6px,
+            80px 10px,
+            0px 10px
+        );
+    }
+    50% {
+        transform: skew(0deg);
+        clip-path: polygon(
+            0px 0px,
+            85px 0px,
+            90px 5px,
+            100% 5px,
+            100% 6px,
+            85px 6px,
+            80px 10px,
+            0px 10px
+        );
+    }
+    51% {
+        transform: skew(0deg);
+        clip-path: polygon(
+            0px 0px,
+            85px 0px,
+            90px 5px,
+            100% 5px,
+            40% 5px,
+            calc(40% - 30px) 0px,
+            calc(40% + 30px) 0px,
+            calc(45% - 15px) 5px,
+            100% 5px,
+            100% 6px,
+            calc(45% - 14px) 6px,
+            calc(40% + 29px) 1px,
+            calc(40% - 29px) 1px,
+            calc(40% + 1px) 6px,
+            85px 6px,
+            80px 10px,
+            0px 10px
+        );
+    }
+    59% {
+        transform: skew(0deg);
+        clip-path: polygon(
+            0px 0px,
+            85px 0px,
+            90px 5px,
+            100% 5px,
+            40% 5px,
+            calc(40% - 30px) 0px,
+            calc(40% + 30px) 0px,
+            calc(45% - 15px) 5px,
+            100% 5px,
+            100% 6px,
+            calc(45% - 14px) 6px,
+            calc(40% + 29px) 1px,
+            calc(40% - 29px) 1px,
+            calc(40% + 1px) 6px,
+            85px 6px,
+            80px 10px,
+            0px 10px
+        );
+    }
+    60% {
+        transform: skew(0deg);
+        clip-path: polygon(
+            0px 0px,
+            85px 0px,
+            90px 5px,
+            100% 5px,
+            100% 6px,
+            85px 6px,
+            80px 10px,
+            0px 10px
+        );
+    }
+    100% {
+        transform: skew(0deg);
+        clip-path: polygon(
+            0px 0px,
+            85px 0px,
+            90px 5px,
+            100% 5px,
+            100% 6px,
+            85px 6px,
+            80px 10px,
+            0px 10px
+        );
+    }
+}
+
+h2.cyberpunk:before {
+    clip-path: polygon(
+        0px 5px,
+        35px 5px,
+        40px 0px,
+        85px 0px,
+        90px 5px,
+        100% 5px,
+        100% 6px,
+        85px 6px,
+        80px 10px,
+        20px 10px,
+        15px 6px,
+        0px 6px
+    );
+}
+
+h2.cyberpunk.glitched:before {
+    animation-name: h2beforeglitched;
+    animation-duration: calc(var(--glitched-duration) * 2);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    background-image: linear-gradient(
+        315deg,
+        var(--secondary-color) 0%,
+        var(--primary-color) 74%
+    );
+}
+
+@keyframes h2beforeglitched {
+    0% {
+        transform: scaleY(1);
+    }
+    10% {
+        transform: scaleY(1);
+    }
+    11% {
+        transform: scaleY(-1);
+    }
+    50% {
+        transform: scaleY(-1);
+    }
+    51% {
+        transform: scaleY(1);
+    }
+    59% {
+        transform: scaleY(1);
+    }
+    60% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+h3.cyberpunk:before {
+    clip-path: polygon(
+        0px 5px,
+        10px 5px,
+        15px 0px,
+        40px 0px,
+        45px 5px,
+        100% 5px,
+        100% 6px,
+        31px 6px,
+        27px 2px,
+        15px 2px,
+        8px 10px,
+        0px 10px
+    );
+}
+
+h4.cyberpunk:before {
+    clip-path: polygon(
+        0px 3px,
+        15px 3px,
+        20px 0px,
+        80px 0px,
+        85px 3px,
+        100% 3px,
+        100% 4px,
+        85px 4px,
+        80px 7px,
+        20px 7px,
+        15px 4px,
+        0px 4px
+    );
+}
+
+h1.cyberpunk:after,
+h2.cyberpunk:after,
+h3.cyberpunk:after,
+h4.cyberpunk:after,
+p.cyberpunk:after {
+    content: '_';
+    animation-name: hxafter;
+    animation-duration: var(--glitched-duration);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+h3.cyberpunk:after,
+h4.cyberpunk:after {
+    animation-direction: reverse;
+    animation-duration: calc(var(--glitched-duration) / 2);
+}
+
+@keyframes hxafter {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    51% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Separator */
+
+hr {
+    height: 14px;
+    background-color: rgb(199, 231, 35);
+    width: 100%;
+    clip-path: polygon(
+        1px 0px,
+        0px 0px,
+        0px 0px,
+        8px 14px,
+        13px 14px,
+        22px 7px,
+        42px 6px,
+        49px 2px,
+        100% 2px,
+        100% 0px,
+        42px 0px,
+        35px 5px,
+        22px 6px,
+        13px 13px,
+        9px 13px
+    );
+    animation-name: hr;
+    animation-duration: var(--glitched-long-duration);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes hr {
+    0% {
+        transform: skew(0deg);
+    }
+    15% {
+        transform: skew(0deg);
+    }
+    16% {
+        transform: skew(20deg);
+    }
+    20% {
+        transform: skew(20deg);
+    }
+    21% {
+        transform: skew(0deg);
+    }
+    100% {
+        right: 35px;
+    }
+}
+
+.planet-container {
+    isolation: isolate;
+    position: relative;
+}
+
+.planet {
+    display: none;
+    margin: 50px 0;
+    max-width: 100%;
+    transform: translateX(-100%);
+    transition: all 0.7s;
+    z-index: -1;
+}
+
+.scanner-2 {
+    margin: 0 auto;
+    position: absolute;
+    inset: 0;
+    left: -80px;
+    animation-name: scan2;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    border-top: 5px solid var(--secondary-color);
+}
+/* animated laser beam */
+.scanner {
+    position: absolute;
+    display: none;
+    z-index: 10000;
+    width: 100%;
+    max-width: 500px;
+    height: 3px;
+    background-color: var(--primary-color);
+    opacity: 0.7;
+    box-shadow: 0px 0px 8px 10px var(--secondary-color);
+    top: 50%;
+    animation-name: scan;
+    animation-duration: 4s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    // animation-play-state: paused;
+}
+
+@keyframes scan {
+    0% {
+        box-shadow: 0px 0px 8px 10px var(--primary-color);
+        top: 50%;
+        transform: scaleX(1);
+    }
+    25% {
+        box-shadow: 0px 6px 8px 10px var(--secondary-color);
+        top: 5px;
+        transform: scaleX(0.8);
+    }
+    50% {
+        transform: scaleX(1);
+    }
+    75% {
+        box-shadow: 0px -6px 8px 10px var(--primary-color);
+        top: 98%;
+        transform: scaleX(0.8);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}

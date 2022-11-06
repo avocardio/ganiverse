@@ -348,6 +348,12 @@ input[type=range]::-webkit-slider-thumb {
     padding: 0px 0px;
     padding-top: 50px;
   }
+  .container .left-side {
+    padding: 0%;
+  }
+  .title {
+    transform: scale(0.8);
+  }
 }
 
 
